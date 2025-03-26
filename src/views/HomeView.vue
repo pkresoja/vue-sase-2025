@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { FlightModel } from '@/models/flight.model';
 import { FlightService } from '@/services/flight.service';
+import { formatTime } from '@/utils';
 import { ref } from 'vue';
 
 const flights = ref<FlightModel[]>()
@@ -18,13 +19,21 @@ FlightService.getFlights()
                 <h6 class="card-subtitle mb-2 text-body-secondary">{{ f.flightNumber }}</h6>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
+                <li class="list-group-item">
+                    <i class="fa-solid fa-clock-rotate-left"></i> {{ formatTime(f.estimatedAt ?? f.scheduledAt) }}
+                </li>
+                <li class="list-group-item">
+                    <i class="fa-solid fa-plane"></i> Plane: {{ f.plane }}
+                </li>
+                <li class="list-group-item">
+                    <i class="fa-solid fa-circle-info"></i> {{ f.gate ? `Gate: ${f.gate} / Terminal: ${f.terminal}` :
+                        'Terminal: ' + f.terminal }}
+                </li>
             </ul>
             <div class="card-body">
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
+                <RouterLink :to="`/flight/${f.id}`" class="btn btn-sm btn-primary">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Details
+                </RouterLink>
             </div>
         </div>
     </div>
