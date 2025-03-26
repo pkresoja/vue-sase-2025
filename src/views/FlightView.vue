@@ -13,5 +13,5 @@ FlightService.getFlightById(id)
 </script>
 
 <template>
-<pre>{{ flight }}</pre>
+    <pre>{{ flight }}</pre>
 </template>
