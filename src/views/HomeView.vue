@@ -7,13 +7,23 @@ import { ref } from 'vue';
 const flights = ref<FlightModel[]>()
 FlightService.getFlights()
     .then(rsp => flights.value = rsp.data)
+
+function doSearch(e: any) {
+    console.log(e.target.value)
+}
 </script>
 
 <template>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+        <input type="text" class="form-control" aria-describedby="search" placeholder="Destination, Flight Number... 🔍"
+            @keyup="(e) => doSearch(e)">
+    </div>
     <div class="wrapper mb-3" v-if="flights">
-        <div class="card" style="width: 18rem;" v-for="f of flights" :key="f.id">
-            <img :src="destinationImage(f)"
-                class="card-img-top" :alt="f.destination">
+        <div class="card flight-card" v-for="f of flights" :key="f.id">
+            <img :src="destinationImage(f)" class="card-img-top" :alt="f.destination">
             <div class="card-body">
                 <h5 class="card-title">{{ f.destination }}</h5>
                 <h6 class="card-subtitle mb-2 text-body-secondary">{{ f.flightNumber }}</h6>
@@ -47,5 +57,9 @@ FlightService.getFlights()
     gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.flight-card {
+    width: 300px;
 }
 </style>

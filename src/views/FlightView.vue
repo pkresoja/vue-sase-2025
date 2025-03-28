@@ -16,15 +16,18 @@ FlightService.getFlightById(id)
 <template>
     <div v-if="flight">
         <div class="row mb-3">
-            <div class="col-8">
+            <div class="col-6">
                 <img :src="destinationImage(flight)" :alt="flight.destination" class="img-fluid">
             </div>
-            <div class="col-4">
+            <div class="col-6">
                 <div class="card">
                     <div class="card-header">
                         <h3>{{ flight.destination }}</h3>
                     </div>
                     <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-hashtag"></i> Number: {{ flight.flightNumber }}
+                        </li>
                         <li class="list-group-item">
                             <i class="fa-solid fa-clock-rotate-left"></i> {{ formatTime(flight.estimatedAt ??
                                 flight.scheduledAt) }}
@@ -46,7 +49,7 @@ FlightService.getFlightById(id)
             </div>
         </div>
         <div class="row">
-            <iframe class="mx-auto" height="300"
+            <iframe class="mx-auto" height="400"
                 :src="`https://www.google.com/maps?output=embed&q=${flight.destination}`" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade" id="gmaps"></iframe>
         </div>
