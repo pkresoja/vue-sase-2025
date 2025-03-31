@@ -35,7 +35,7 @@ function doSearch(e: any) {
 </script>
 
 <template>
-    <div class="input-group mb-3">
+    <div class="input-group mb-3 search">
         <span class="input-group-text" id="search">
             <i class="fa-solid fa-magnifying-glass"></i>
         </span>
@@ -82,5 +82,11 @@ function doSearch(e: any) {
 
 .flight-card {
     width: 300px;
+}
+
+.search {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 </style>
