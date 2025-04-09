@@ -5,4 +5,8 @@ export class AirlineService {
     static async getAirlines() {
         return await MainService.useAxios<AirlineModel[]>('/airline')
     }
+
+    static async getAirlineById(id: number) {
+        return await MainService.useAxios<AirlineModel>(`/airline/${id}`)
+    }
 }

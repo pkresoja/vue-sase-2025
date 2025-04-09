@@ -5,6 +5,7 @@ import FlightView from '@/views/FlightView.vue'
 import TableView from '@/views/TableView.vue'
 import AirlineView from '@/views/AirlineView.vue'
 import LoginView from '@/views/LoginView.vue'
+import EditAirline from '@/views/EditAirline.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,12 @@ const router = createRouter({
       path: '/airline',
       name: 'airline',
       component: AirlineView,
+    },
+
+    {
+      path: '/airline/:id',
+      name: 'edit-airline',
+      component: EditAirline,
     },
   ],
 })
