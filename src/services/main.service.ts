@@ -7,7 +7,7 @@ const client = axios.create({
         'Accept': 'application/json'
     },
     validateStatus: (status: number) => {
-        return status === 200
+        return status === 200 || status === 204
     }
 })
 
