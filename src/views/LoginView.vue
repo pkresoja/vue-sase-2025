@@ -23,7 +23,7 @@ function doLogin(e: Event) {
 </script>
 
 <template>
-    <div class="auth-form">
+    <div class="custom-form">
         <div class="text-center">
             <h3>Ticket App</h3>
             <p>Security Aspects of SE</p>
@@ -41,11 +41,3 @@ function doLogin(e: Event) {
         </form>
     </div>
 </template>
-
-<style>
-.auth-form {
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-</style>
