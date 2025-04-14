@@ -8,6 +8,7 @@ import LoginView from '@/views/LoginView.vue'
 import EditAirline from '@/views/EditAirline.vue'
 import NewAirline from '@/views/NewAirline.vue'
 import TicketView from '@/views/TicketView.vue'
+import EditTicket from '@/views/EditTicket.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +57,11 @@ const router = createRouter({
       path: '/ticket',
       name: 'ticket',
       component: TicketView,
+    },
+    {
+      path: '/ticket/:id',
+      name: 'edit-ticket',
+      component: EditTicket,
     }
   ]
 })

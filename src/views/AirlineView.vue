@@ -2,26 +2,30 @@
 import type { AirlineModel } from '@/models/airline.model';
 import { AirlineService } from '@/services/airline.service';
 import { ref } from 'vue';
-import { doLogout, formatTime } from '@/utils';
+import { formatTime } from '@/utils';
+import { useLogout } from '@/hooks/logout.hook';
+import Navigation from '@/components/Navigation.vue';
 
+const logout = useLogout()
 const airlines = ref<AirlineModel[]>()
 AirlineService.getAirlines()
     .then(rsp => airlines.value = rsp.data)
-    .catch(e => doLogout())
+    .catch(e => logout(e))
 
 async function doDelete(airline: AirlineModel) {
     try {
         if (!confirm(`Are you sure you want to delete ${airline.name}?`)) return
         await AirlineService.deleteAirline(airline.airlineId)
         airlines.value = airlines.value?.filter(a => a.airlineId !== airline.airlineId)
-    } catch {
-        doLogout()
+    } catch (e) {
+        logout(e)
     }
 }
 
 </script>
 
 <template>
+    <Navigation />
     <div>
         <h3>Airlines</h3>
         <RouterLink to="/airline/new" class="btn btn-sm btn-primary">

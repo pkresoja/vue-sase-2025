@@ -1,10 +1,13 @@
 <script lang="ts" setup>
+import Navigation from '@/components/Navigation.vue';
+import { useLogout } from '@/hooks/logout.hook';
 import type { AirlineModel } from '@/models/airline.model';
 import { AirlineService } from '@/services/airline.service';
-import { doLogout, formatTime } from '@/utils';
+import { formatTime } from '@/utils';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
+const logout = useLogout()
 const route = useRoute()
 const router = useRouter()
 const id = Number(route.params.id)
@@ -12,16 +15,17 @@ const airline = ref<AirlineModel>()
 
 AirlineService.getAirlineById(id)
     .then(rsp => airline.value = rsp.data)
-    .catch(e => doLogout())
+    .catch(e => logout(e))
 
 function doUpdate() {
     AirlineService.updateAirline(id, airline.value)
     .then(rsp=> router.push('/airline'))
-    .catch(e => doLogout())
+    .catch(e => logout(e))
 }
 </script>
 
 <template>
+    <Navigation />
     <div class="custom-form" v-if="airline">
         <h1>Edit Airline</h1>
         <form v-on:submit.prevent="doUpdate">

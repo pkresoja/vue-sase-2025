@@ -15,9 +15,3 @@ export function formatTime(iso: string) {
 export function destinationImage(flight: FlightModel) {
     return `https://img.pequla.com/destination/${flight.destination.toLowerCase().split(' ')[0]}.jpg`
 }
-
-export function doLogout() {
-    const router = useRouter()
-    AuthService.removeAuth()
-    router.push('login')
-}

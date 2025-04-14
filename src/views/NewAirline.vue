@@ -1,9 +1,11 @@
 <script lang="ts" setup>
+import Navigation from '@/components/Navigation.vue';
+import { useLogout } from '@/hooks/logout.hook';
 import { AirlineService } from '@/services/airline.service';
-import { doLogout } from '@/utils';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+const logout = useLogout()
 const router = useRouter()
 const airline = ref({
     name: '',
@@ -13,11 +15,12 @@ const airline = ref({
 function doCreate() {
     AirlineService.createAirline(airline.value)
         .then(rsp => router.push('/airline'))
-        .catch(e => doLogout())
+        .catch(e => logout(e))
 }
 </script>
 
 <template>
+    <Navigation />
     <div class="custom-form" v-if="airline">
         <h1>Create Airline</h1>
         <form v-on:submit.prevent="doCreate">

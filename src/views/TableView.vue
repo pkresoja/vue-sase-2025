@@ -1,23 +1,20 @@
 <script lang="ts" setup>
+import Navigation from '@/components/Navigation.vue';
+import { useLogout } from '@/hooks/logout.hook';
 import type { FlightModel } from '@/models/flight.model';
-import { AuthService } from '@/services/auth.service';
 import { FlightService } from '@/services/flight.service';
 import { formatTime } from '@/utils';
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 
-const router = useRouter()
+const logout = useLogout()
 const flights = ref<FlightModel[]>()
 FlightService.getFlights()
     .then(rsp => flights.value = rsp.data)
-    .catch(e => {
-        AuthService.removeAuth()
-        router.push('/login')
-    })
-    
+    .catch(e => logout(e))
 </script>
 
 <template>
+    <Navigation />
     <h3>Table View</h3>
     <table class="table table-striped table-hover" v-if="flights">
         <thead>

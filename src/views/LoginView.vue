@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import Navigation from '@/components/Navigation.vue';
 import { AuthService } from '@/services/auth.service';
 import { MainService } from '@/services/main.service';
 import { ref } from 'vue';
@@ -23,6 +24,7 @@ function doLogin(e: Event) {
 </script>
 
 <template>
+    <Navigation />
     <div class="custom-form">
         <div class="text-center">
             <h3>Ticket App</h3>

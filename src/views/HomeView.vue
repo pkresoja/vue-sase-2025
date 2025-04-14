@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import Navigation from '@/components/Navigation.vue';
+import { useLogout } from '@/hooks/logout.hook';
 import type { FlightModel } from '@/models/flight.model';
-import { AuthService } from '@/services/auth.service';
 import { FlightService } from '@/services/flight.service';
 import { destinationImage, formatTime } from '@/utils';
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 
-const router = useRouter()
+const logout = useLogout()
 const flights = ref<FlightModel[]>()
 const allFlights = ref<FlightModel[]>()
 FlightService.getFlights()
@@ -14,10 +14,7 @@ FlightService.getFlights()
         allFlights.value = rsp.data
         flights.value = rsp.data
     })
-    .catch(e => {
-        AuthService.removeAuth()
-        router.push('/login')
-    })
+    .catch(e => logout(e))
 
 function doSearch(e: any) {
     // When flights are not loaded, skip search
@@ -42,6 +39,7 @@ function doSearch(e: any) {
 </script>
 
 <template>
+    <Navigation />
     <div class="input-group mb-3 search">
         <span class="input-group-text" id="search">
             <i class="fa-solid fa-magnifying-glass"></i>

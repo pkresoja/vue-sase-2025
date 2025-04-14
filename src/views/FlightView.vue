@@ -1,25 +1,24 @@
 <script lang="ts" setup>
+import Navigation from '@/components/Navigation.vue';
+import { useLogout } from '@/hooks/logout.hook';
 import type { FlightModel } from '@/models/flight.model';
-import { AuthService } from '@/services/auth.service';
 import { FlightService } from '@/services/flight.service';
 import { destinationImage, formatTime } from '@/utils';
 import { ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
-const router = useRouter()
+const logout = useLogout()
 const route = useRoute()
 const id = Number(route.params.id)
 const flight = ref<FlightModel>()
 
 FlightService.getFlightById(id)
     .then(rsp => flight.value = rsp.data)
-    .catch(e => {
-        AuthService.removeAuth()
-        router.push('/login')
-    })
+    .catch(e => logout(e))
 </script>
 
 <template>
+    <Navigation />
     <div v-if="flight">
         <div class="row mb-3">
             <div class="col-6">
