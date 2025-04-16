@@ -48,6 +48,9 @@ FlightService.getFlights()
                         <RouterLink :to="`/flight/${f.id}`" class="btn btn-sm btn-primary">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i>
                         </RouterLink>
+                        <RouterLink :to="`/flight/${f.id}/book`" class="btn btn-sm btn-success">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </RouterLink>
                     </div>
                 </td>
             </tr>

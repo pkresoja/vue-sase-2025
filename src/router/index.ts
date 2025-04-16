@@ -9,6 +9,7 @@ import EditAirline from '@/views/EditAirline.vue'
 import NewAirline from '@/views/NewAirline.vue'
 import TicketView from '@/views/TicketView.vue'
 import EditTicket from '@/views/EditTicket.vue'
+import NewTicket from '@/views/NewTicket.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,11 @@ const router = createRouter({
       path: '/about',
       name: 'about',
       component: AboutView,
+    },
+    {
+      path: '/flight/:id/book',
+      name: 'new-ticket',
+      component: NewTicket,
     },
     {
       path: '/flight/:id',

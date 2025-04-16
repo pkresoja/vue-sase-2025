@@ -18,13 +18,19 @@ function doDelete(t: TicketModel) {
         .then(rsp => tickets.value = tickets.value?.filter(ticket => ticket.ticketId !== t.ticketId))
         .catch(e => logout(e))
 }
+
+function makePaid(t: TicketModel) {
+    TicketService.payTicket(t.ticketId)
+        .then(rsp => tickets.value!.forEach(ticket => {
+            if (ticket.ticketId == t.ticketId)
+                ticket.paidAt = new Date().toISOString()
+        }))
+}
 </script>
 
 <template>
     <Navigation />
     <h3>Tickets</h3>
-    <h3>ONLY UPADTE IS DONE, IMPLEMENT CREATE AND MAKE THE EDIT PAGE LOOK BETTER</h3>
-    <h3>ADD LOADING EVERYWHERE</h3>
     <table class="table table-striped table-hover" v-if="tickets">
         <thead>
             <tr>
@@ -56,12 +62,20 @@ function doDelete(t: TicketModel) {
                 <td>{{ formatTime(t.updatedAt ?? t.createdAt) }}</td>
                 <td>
                     <div class="btn-group" v-if="!t.paidAt">
+                        <button class="btn btn-sm btn-light" @click="makePaid(t)">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </button>
                         <RouterLink :to="`/ticket/${t.ticketId}`" class="btn btn-sm btn-success">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </RouterLink>
                         <button class="btn btn-sm btn-danger" @click="doDelete(t)">
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
+                    </div>
+                    <div class="btn-group" v-else>
+                        <RouterLink :to="`/ticket/${t.ticketId}/qrcode`" class="btn btn-sm btn-primary">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </RouterLink>
                     </div>
                 </td>
             </tr>

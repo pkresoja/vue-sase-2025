@@ -67,9 +67,14 @@ function doSearch(e: any) {
                 </li>
             </ul>
             <div class="card-body">
-                <RouterLink :to="`/flight/${f.id}`" class="btn btn-sm btn-primary">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Details
-                </RouterLink>
+                <div class="btn-group">
+                    <RouterLink :to="`/flight/${f.id}`" class="btn btn-sm btn-primary">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Details
+                    </RouterLink>
+                    <RouterLink :to="`/flight/${f.id}/book`" class="btn btn-sm btn-success">
+                        <i class="fa-solid fa-cart-shopping"></i> Book Now
+                    </RouterLink>
+                </div>
             </div>
         </div>
     </div>

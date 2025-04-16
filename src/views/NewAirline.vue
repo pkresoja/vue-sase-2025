@@ -22,19 +22,33 @@ function doCreate() {
 <template>
     <Navigation />
     <div class="custom-form" v-if="airline">
-        <h1>Create Airline</h1>
-        <form v-on:submit.prevent="doCreate">
-            <div class="mb-3">
-                <label for="name" class="form-label">Name:</label>
-                <input type="text" class="form-control" id="name" v-model="airline.name">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <RouterLink to="/airline">Airlines</RouterLink>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Create
+                </li>
+            </ol>
+        </nav>
+        <h3>Create Airline</h3>
+        <div class="card">
+            <div class="card-body">
+                <form v-on:submit.prevent="doCreate">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name:</label>
+                        <input type="text" class="form-control" id="name" v-model="airline.name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="website" class="form-label">Website:</label>
+                        <input type="text" class="form-control" id="website" v-model="airline.website">
+                    </div>
+                    <button class="btn btn-primary">
+                        <i class="fa-solid fa-floppy-disk"></i> Save
+                    </button>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="website" class="form-label">Website:</label>
-                <input type="text" class="form-control" id="website" v-model="airline.website">
-            </div>
-            <button class="btn btn-primary">
-                <i class="fa-solid fa-floppy-disk"></i> Save
-            </button>
-        </form>
+        </div>
     </div>
 </template>

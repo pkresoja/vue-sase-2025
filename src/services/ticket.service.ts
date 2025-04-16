@@ -18,6 +18,10 @@ export class TicketService {
         return await MainService.useAxios(`/ticket/${id}`, 'put', model)
     }
 
+    static async payTicket(id: number) {
+        return await MainService.useAxios(`/ticket/${id}/pay`, 'put')
+    }
+
     static async deleteTicket(id: number) {
         return await MainService.useAxios(`/ticket/${id}`, 'delete')
     }

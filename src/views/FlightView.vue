@@ -20,6 +20,14 @@ FlightService.getFlightById(id)
 <template>
     <Navigation />
     <div v-if="flight">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <RouterLink to="/">Home</RouterLink>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{ flight.destination }}</li>
+            </ol>
+        </nav>
         <div class="row mb-3">
             <div class="col-6">
                 <img :src="destinationImage(flight)" :alt="flight.destination" class="img-fluid">
@@ -50,6 +58,13 @@ FlightService.getFlightById(id)
                             <i class="fa-solid fa-link"></i> Connected: {{ flight.connectedFlight }}
                         </li>
                     </ul>
+                    <div class="card-body">
+                        <div class="btn-group">
+                            <RouterLink :to="`/flight/${flight.id}/book`" class="btn btn-sm btn-success">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Book Now
+                            </RouterLink>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
