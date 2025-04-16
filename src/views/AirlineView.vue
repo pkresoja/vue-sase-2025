@@ -5,6 +5,7 @@ import { ref } from 'vue';
 import { formatTime } from '@/utils';
 import { useLogout } from '@/hooks/logout.hook';
 import Navigation from '@/components/Navigation.vue';
+import Loading from '@/components/Loading.vue';
 
 const logout = useLogout()
 const airlines = ref<AirlineModel[]>()
@@ -63,4 +64,5 @@ async function doDelete(airline: AirlineModel) {
             </tr>
         </tbody>
     </table>
+    <Loading v-else />
 </template>

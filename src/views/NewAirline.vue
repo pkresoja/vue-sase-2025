@@ -21,7 +21,7 @@ function doCreate() {
 
 <template>
     <Navigation />
-    <div class="custom-form" v-if="airline">
+    <div class="custom-form">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">

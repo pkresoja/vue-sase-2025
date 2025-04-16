@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import Loading from '@/components/Loading.vue';
 import Navigation from '@/components/Navigation.vue';
 import { useLogout } from '@/hooks/logout.hook';
 import type { FlightModel } from '@/models/flight.model';
@@ -74,4 +75,5 @@ FlightService.getFlightById(id)
                 referrerpolicy="no-referrer-when-downgrade" id="gmaps"></iframe>
         </div>
     </div>
+    <Loading v-else />
 </template>

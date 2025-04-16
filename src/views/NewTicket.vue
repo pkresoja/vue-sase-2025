@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import Loading from '@/components/Loading.vue';
 import Navigation from '@/components/Navigation.vue';
 import { useLogout } from '@/hooks/logout.hook';
 import type { AirlineModel } from '@/models/airline.model';
@@ -78,4 +79,5 @@ function doCreate() {
             </div>
         </div>
     </div>
+    <Loading v-else />
 </template>

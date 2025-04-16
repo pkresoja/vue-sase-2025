@@ -25,21 +25,23 @@ function doLogin(e: Event) {
 
 <template>
     <Navigation />
-    <div class="custom-form">
-        <div class="text-center">
-            <h3>Ticket App</h3>
-            <p>Security Aspects of SE</p>
+    <div class="custom-form card">
+        <div class="card-body">
+            <div class="text-center">
+                <h3>Ticket App</h3>
+                <p>Security Aspects of SE</p>
+            </div>
+            <form v-on:submit="e => doLogin(e)">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address:</label>
+                    <input type="email" class="form-control" id="email" v-model="email">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="password" v-model="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
-        <form v-on:submit="e => doLogin(e)">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email address:</label>
-                <input type="email" class="form-control" id="email" v-model="email">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" class="form-control" id="password" v-model="password">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
     </div>
 </template>
