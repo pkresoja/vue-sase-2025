@@ -6,6 +6,7 @@ import { TicketService } from '@/services/ticket.service';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import QRCodeVue3 from "qrcode-vue3";
+import { formatTime } from '@/utils';
 
 const route = useRoute()
 const logout = useLogout()
@@ -19,22 +20,39 @@ TicketService.getTicketById(id)
 
 <template>
     <Navigation />
-    <pre>{{ ticket }}</pre>
-    <QRCodeVue3 value="Simple QR code" />
-    <QRCodeVue3 :width="200" :height="200" :value="String(ticket.ticketId)" v-if="ticket"
-        :qrOptions="{ typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'H' }"
-        :imageOptions="{ hideBackgroundDots: true, imageSize: 0.4, margin: 0 }" :dotsOptions="{
-            type: 'dots',
-            color: '#26249a',
-            gradient: {
-                type: 'linear',
-                rotation: 0,
-                colorStops: [
-                    { offset: 0, color: '#26249a' },
-                    { offset: 1, color: '#26249a' },
-                ],
-            },
-        }" :backgroundOptions="{ color: '#ffffff' }" :cornersSquareOptions="{ type: 'dot', color: '#000000' }"
-        :cornersDotOptions="{ type: undefined, color: '#000000' }" fileExt="png" :download="true" myclass="my-qur"
-        imgclass="img-qr" downloadButton="my-button" :downloadOptions="{ name: 'vqr', extension: 'png' }" />
+    <h3 class="text-center">Printable Ticket</h3>
+    <div class="card mb-3" v-if="ticket">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <QRCodeVue3 :value="`${ticket.ticketId} ${ticket.flight.flightKey}`" class="img-fluid rounded-start" />
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ ticket.flight.destination }} - {{ ticket.airline.name }}</h5>
+                    <p class="card-text">{{ ticket.ticketId }} {{ ticket.flight.flightKey }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <i class="fa-solid fa-clock-rotate-left"></i> {{ formatTime(ticket.flight.estimatedAt ??
+                            ticket.flight.scheduledAt) }}
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-solid fa-plane"></i> Plane: {{ ticket.flight.plane }}
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-solid fa-circle-info"></i> {{ ticket.flight.gate ? `Gate: ${ticket.flight.gate} /
+                        Terminal: ${ticket.flight.terminal}`
+                            :
+                            'Terminal: ' + ticket.flight.terminal }}
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-solid fa-bookmark"></i> Created At: {{ formatTime(ticket.createdAt) }}
+                    </li>
+                    <li class="list-group-item" v-if="ticket.paidAt">
+                        <i class="fa-solid fa-cart-shopping"></i> Paid At: {{ formatTime(ticket.paidAt) }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </template>
